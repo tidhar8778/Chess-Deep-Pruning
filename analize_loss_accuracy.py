@@ -1,9 +1,10 @@
 import numpy as np
 import pickle
 from matplotlib import pyplot as plt
+from params import  folder_model
 
-folder = 'dataset_from_search/test 3 - larger model (500)'
-file_name = folder+'/loss_accuracylarger.pkl'
+file_name = folder_model+'/loss_accuracy.pkl'
+# file_name = 'C:\\Users\\User\\Documents\\tidhar\\barilan\\DeepLearning\\thesis\\chess\\tucano\\Tucano\\bpruning\\model\\loss_accuracy.pkl'
 with open(file_name, 'rb') as f:
     results_dict = pickle.load(f)
 

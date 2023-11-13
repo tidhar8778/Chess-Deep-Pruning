@@ -32,7 +32,7 @@ Usage:
 '''
 
 import chess
-from utils import is_endgame
+# from utils import is_endgame
 from chess import Board
 import re
 import numpy as np
@@ -98,7 +98,7 @@ def get_features(position, verbose=False):
     _init_square_data(position)
     features = (
         []
-        + _is_endgame(position, verbose)
+        # + _is_endgame(position, verbose)
         + _side_to_move(position, verbose)
         + _castling_rights(position, verbose)
         + _material_configuration(position, verbose)
