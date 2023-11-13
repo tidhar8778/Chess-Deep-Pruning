@@ -36,6 +36,8 @@ char        command[MAX_READ] = { '\0' };
 char        syzygy_path[1024] = "";
 // my add
 PyObject* pFunc;
+int count_visit = 0;
+int count_visit_cutoff = 0;
 
 
 //-------------------------------------------------------------------------------------------------
@@ -186,8 +188,15 @@ int main(int argc, char *argv[])
             run_fens_test();
             continue;
         }
-        // end my add
         
+        if (!strcmp(command, "dataset"))
+        {
+            create_dataset();
+            continue;
+        }
+        // end my add
+
+
         if (!strcmp(command, "uci")) {
             uci_loop(ENGINE, VERSION, AUTHOR);
             stop = TRUE;
@@ -583,7 +592,7 @@ double bench(int depth, int print)
     settings.single_move_time = MAX_TIME;
     settings.total_move_time = MAX_TIME;
     settings.use_book = FALSE;
-    settings.max_nodes = 0;
+    settings.max_nodes = 1000000;  // 0; my add - chagne from 0 to 1 million
 
     if (print) printf("Benchmark (depth=%d)\n", depth);
 

@@ -123,6 +123,10 @@ typedef unsigned int    UINT;
 
 #define flip_color(color)   ((color) ^ 1)
 
+// my add
+#define BPRUNING_MAX_BETA   (500*2)
+#define BPRUNING_MIN_BETA   (-500*2)
+
 // Search values
 #define MAX_PLY         128
 #define MAX_DEPTH        64
@@ -353,7 +357,8 @@ typedef struct s_search
     int     root_move_search;       // number of move searched at root node, used by xboard analysis
     U64     nodes_cutted_b;         // number of nodes pruned by NN. my add
     U64     nodes_checked_cutting_b; // number of nodes checked weither to be pruned or not by the NN algorithm
-    int     use_bpruning;           // 0 - don't use it. 1 - use deep prune
+    int     use_bpruning;           // 0 - don't use it. 1 - use deep prune. my add
+    int     extract_data;           // 0 - nothing changes, don't extract data. 1 - extract data, use 'search' to get inner state, beta, and pruned or not. my add
 }   SEARCH;
 
 //  Pawn evaluation table: cache for already evaluated pawn structure
@@ -705,7 +710,7 @@ void    eval_tune(void);
 
 // My add
 // Deep pruning
-int     deep_prune(char *fen, double beta);
+int     deep_prune(char *fen, int beta);
 void set_python_con();
 void end_python_con();
 // End my add

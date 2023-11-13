@@ -184,13 +184,14 @@ void *iterative_deepening(void *pv_game)
 
         // Search on next depth if more than 1/2 threads are already searching it.
         // Based on demolito chess engine.
-        if (!game->is_main_thread && depth > 1 && depth < game->search.max_depth) {
+        // clean
+        /*if (!game->is_main_thread && depth > 1 && depth < game->search.max_depth) {
             int count = 0;
             for (int i = 0; i < additional_threads; i++) {
                 if (thread_data[i].search.cur_depth >= depth) count++;
             }
             if (count > additional_threads / 2) depth++;
-        }
+        }*/
 
         game->search.cur_depth = depth;
 
@@ -245,24 +246,25 @@ void *iterative_deepening(void *pv_game)
 //-------------------------------------------------------------------------------------------------
 int search_asp(GAME *game, int incheck, int depth, int prev_score)
 {
-    if (depth > 4 && !is_mate_score(prev_score)) {
+    // clean
+    //if (depth > 4 && !is_mate_score(prev_score)) {
 
-        for (int window = 25; window <= 400; window *= 4) {
+    //    for (int window = 25; window <= 400; window *= 4) {
 
-            int alpha = prev_score - window;
-            int beta = prev_score + window;
+    //        int alpha = prev_score - window;
+    //        int beta = prev_score + window;
 
-            int score = search_pv(game, incheck, alpha, beta, depth);
-            if (game->search.abort) return 0;
+    //        int score = search_pv(game, incheck, alpha, beta, depth);
+    //        if (game->search.abort) return 0;
 
-            if (score > alpha && score < beta) return score;
+    //        if (score > alpha && score < beta) return score;
 
-            if (is_mate_score(score)) break; // do a full window search
+    //        if (is_mate_score(score)) break; // do a full window search
 
-            prev_score = score;
-        }
+    //        prev_score = score;
+    //    }
 
-    }
+    //}
 
     return search_pv(game, incheck, -MAX_SCORE, MAX_SCORE, depth);
 }
