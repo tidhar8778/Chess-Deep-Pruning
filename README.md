@@ -10,6 +10,32 @@ Run create_features: read fen_labels (or fen_labels_combined.txt) and create fea
 
 Use Neural Network model and train it using "nn.py" for 100 epochs.
 
+Tucano search method:
+1.	Try to find a move from book
+2.	Using multiple threads (in our experiment set to 1)
+3.	iterative_deepening
+4.	Aspiration window (25, 100, 400)
+5.	Principal variation search
+6.	If not in pv, run zero-window search
+7.	Quiesce
+8.	Transposition table
+9.	Multiple extension and reduction for the depth (example: move puts opponent in check)
+10.	If fail-high return score
+11.	During zero-window search:
+a.	Razoring
+b.	Null move pruning
+c.	Prob-cut
+
+Added commands to tucano to implement the NN inside:
+
+"dataset" - used to create a dataset of <fen, beta, static_evaluation, pruned_or_not_pruned> based on fens input.
+"test" - run on a fens test set. Run tucano engine 3 times on each fen.
+1. Base result - run with more nodes to get "true" evaluation score.
+2. Regular - run as control group.
+3. Run using deep-prune network.
+
+
+
 Files:
 
 extract_features:
